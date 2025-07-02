@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "issue_type": {
+      "enum": [
+        "Treatment",
+        "Communication",
+        "Staff_Behavior",
+        "Facilities",
+        "Administrative",
+        "Safety",
+        "Wait_Times",
+        "Other"
+      ],
+      "type": "string"
+    },
+    "problem_summary": {
+      "type": "string"
+    },
+    "severity": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "issue_type",
+    "severity",
+    "problem_summary"
+  ],
+  "type": "object"
+}
