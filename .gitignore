@@ -1,0 +1,7 @@
+# Lists all files and directories to be ignored by Git
+
+# Environments
+.venv/
+
+# Files
+xdev.sh
