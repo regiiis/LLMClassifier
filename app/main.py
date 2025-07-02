@@ -6,10 +6,12 @@ from domain.message_class import create_messages_from_feedbacks
 schema_path = "data/customer_feedback_json_schema.json"
 feedbacks_path = "data/feedbacks_google.json"
 model_name = "Qwen/Qwen3-32B"
+provider = "cerebras"  # open: "novita", "groq", "sambanova", "nscale", "fireworks", "nebiusai", "featherlessai". used for July:"cerebras"
 
 
 class classifier:
-    def __init__(self, model_name: str, api_key: str):
+    def __init__(self, provider: str, model_name: str, api_key: str):
+        self.provider = provider
         self.model_name = model_name
         self.api_key = api_key
 
@@ -59,7 +61,7 @@ class classifier:
             raise TypeError("JSON schema must be a dictionary.")
 
         classifier_service = ClassifierService(
-            model_name=self.model_name, api_key=self.api_key
+            provider=self.provider, model_name=self.model_name, api_key=self.api_key
         )
         result = classifier_service.classify(message=message, json_schema=json_schema)
         return result
@@ -86,9 +88,14 @@ if __name__ == "__main__":
     print(f"\nRunning classification with model: {model_name}\n")
     api_key = os.getenv("ACCESS_TOKEN")
 
-    classifier_instance = classifier(model_name=model_name, api_key=api_key)
+    classifier_instance = classifier(
+        provider=provider, model_name=model_name, api_key=api_key
+    )
     classification_results = classifier_instance.loop_feedbacks(feedbacks_path)
 
     print(f"\nProcessed {len(classification_results)} feedbacks")
     for i, result in enumerate(classification_results):
-        print(f"\nFeedback {i + 1}: {result.choices[0].message}")
+        if result is not None:
+            print(f"\nFeedback {i + 1}: {result.choices[0].message.content}\n")
+        else:
+            print(f"\nFeedback {i + 1}: Classification failed\n")

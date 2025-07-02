@@ -16,7 +16,7 @@ def create_messages_from_feedbacks(feedbacks: List[str]) -> List[List[dict]]:
         message_set = [
             {
                 "role": "system",
-                "content": "Extract the issue type, severity, and problem summary from the following customer review.",
+                "content": "Analyze the customer review and extract structured information. Classify the feedback type (Positive/Negative/Neutral/Mixed), identify issue types and compliment types (can be multiple from: Treatment, Communication, Staff_Behavior, Facilities, Administrative, Safety, Wait_Times, Other, None), assess severity level (low/medium/high/None), and provide, rather short, both negative and positive summaries where applicable.",
             },
             {"role": "user", "content": feedback},
         ]

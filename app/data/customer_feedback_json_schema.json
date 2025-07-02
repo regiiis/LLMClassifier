@@ -1,34 +1,71 @@
 {
   "properties": {
-    "issue_type": {
+    "compliment_type": {
+      "items": {
+        "enum": [
+          "Treatment",
+          "Communication",
+          "Staff_Behavior",
+          "Facilities",
+          "Administrative",
+          "Safety",
+          "Wait_Times",
+          "Other",
+          "None"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "feedback": {
       "enum": [
-        "Treatment",
-        "Communication",
-        "Staff_Behavior",
-        "Facilities",
-        "Administrative",
-        "Safety",
-        "Wait_Times",
-        "Other"
+        "Positive",
+        "Negative",
+        "Neutral",
+        "Mixed"
       ],
       "type": "string"
     },
-    "problem_summary": {
+    "issue_type": {
+      "items": {
+        "enum": [
+          "Treatment",
+          "Communication",
+          "Staff_Behavior",
+          "Facilities",
+          "Administrative",
+          "Safety",
+          "Wait_Times",
+          "Other",
+          "None"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "negative_summary": {
+      "type": "string"
+    },
+    "positive_summary": {
       "type": "string"
     },
     "severity": {
       "enum": [
         "low",
         "medium",
-        "high"
+        "high",
+        "None"
       ],
       "type": "string"
     }
   },
   "required": [
+    "feedback",
     "issue_type",
     "severity",
-    "problem_summary"
+    "negative_summary",
+    "positive_summary",
+    "compliment_type"
   ],
   "type": "object"
 }

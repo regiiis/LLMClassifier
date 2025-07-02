@@ -5,13 +5,17 @@ from huggingface_hub import InferenceClient
 class LLMEndpoint(LLMPort):
     """Adapter for Hugging Face LLM inference with structured JSON output."""
 
-    def __init__(self, model_name: str, api_key: str):
+    def __init__(self, provider: str, model_name: str, api_key: str):
         """Initialize LLM endpoint with model and API credentials.
 
         Args:
             model_name: Name of the model to use
             api_key: Authentication token for the API
         """
+        if not provider:
+            raise ValueError("Provider must be provided.")
+        if not isinstance(provider, str):
+            raise TypeError("Provider must be a string.")
         if not model_name:
             raise ValueError("Model name must be provided.")
         if not isinstance(model_name, str):
@@ -20,11 +24,12 @@ class LLMEndpoint(LLMPort):
             raise ValueError("API key must be provided.")
         if not isinstance(api_key, str):
             raise TypeError("API key must be a string.")
+        self.provider = provider
         self.model_name = model_name
         self.api_key = api_key
 
         try:
-            self.client = InferenceClient(provider="cerebras", token=self.api_key)
+            self.client = InferenceClient(provider=self.provider, token=self.api_key)
         except Exception as e:
             raise ConnectionError(f"Failed to connect to the LLM service: {e}")
 
