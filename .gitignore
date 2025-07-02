@@ -1,7 +1,11 @@
 # Lists all files and directories to be ignored by Git
 
-# Environments
+# folders
+.ruff_cache/
 .venv/
 
 # Files
 xdev.sh
+
+# Python cache files
+__pycache__/

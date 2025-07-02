@@ -1,0 +1,6 @@
+huggingface-hub==0.33.*
+numpy==2.3.*
+outlines==1.0.*
+pydantic==2.11.*
+requests==2.32.*
+transformers==4.53.*
